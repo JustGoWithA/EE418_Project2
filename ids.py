@@ -142,9 +142,21 @@ class IDS:
         #   S[k] -> curr_skew
         #
         # TODO: Implement the RLS algorithm
-
-        # Your code goes here. 
-
+        
+        # set the forgetting factor (lambda)
+        forgetting_factor = 1;
+        
+        # Compute the gain
+        numerator = math.pow(forgetting_factor, -1) * prev_P * time_elapsed_sec;
+        denom = 1 + (math.pow(forgetting_factor, -1)*math.pow(time_elapsed_sec,2) * prev_P;
+        gain = numerator / (1.0*denom);
+        
+        # compute the current covariance
+        curr_P = math.pow(forgetting_factor, -1) * (prev_P - (gain*time_elapsed_sec*prev_P));
+        
+        # compute the current skew
+        curr_skew = prev_skew + (gain *curr_error);
+        
         # ====================== End of Your Code =========================
 
         # Update the state of IDS
@@ -179,7 +191,12 @@ class IDS:
         # TODO: 1) Normalize curr_error_sample, 2) compute curr_L_upper and curr_L_lower
         # Store the normalized error in `normalized_error`
 
-        # Your code goes here. 
+        # Normalize the error
+        normalized_error = (curr_error_sample - mu_e) / (1.0*sigma_e);
+        
+        # compute current L_upper and L_lower
+        curr_L_upper = max(0, prev_L_upper + normalized_error - kappa);
+        curr_L_lower = max(0, prev_L_lower - normalized_error - kappa);
         
         # ====================== End of Your Code =========================
 
