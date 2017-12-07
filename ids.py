@@ -148,7 +148,7 @@ class IDS:
         
         # Compute the gain
         numerator = math.pow(forgetting_factor, -1) * prev_P * time_elapsed_sec;
-        denom = 1 + (math.pow(forgetting_factor, -1)*math.pow(time_elapsed_sec,2) * prev_P;
+        denom = 1 + (math.pow(forgetting_factor, -1)*math.pow(time_elapsed_sec,2) * prev_P);
         gain = numerator / (1.0*denom);
         
         # compute the current covariance
